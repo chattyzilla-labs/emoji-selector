@@ -40,16 +40,16 @@ export default class Anchors extends React.PureComponent {
           const iconId = id.startsWith('custom-') ? 'custom' : id
 
           return (
-            <button
+            <div
               key={id}
               aria-label={i18n.categories[id]}
               title={i18n.categories[id]}
               data-index={i}
-              type={'button'}
+              // type={'button'}
               onClick={this.handleClick}
-              className={`emoji-mart-anchor ${
-                isSelected ? 'emoji-mart-anchor-selected' : ''
-              }`}
+              className={`emoji-mart-anchor ` + (isSelected ? 'emoji-mart-anchor-selected' : '')}
+              // isSelected ? 'emoji-mart-anchor-selected' : ''
+              
               style={{ color: isSelected ? color : null }}
             >
               <div className="emoji-mart-anchor-icon">
@@ -59,7 +59,7 @@ export default class Anchors extends React.PureComponent {
                 className="emoji-mart-anchor-bar"
                 style={{ backgroundColor: color }}
               />
-            </button>
+            </div>
           )
         })}
       </nav>

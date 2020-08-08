@@ -180,16 +180,16 @@ const NimbleEmoji = (props) => {
   }
 
   var Tag = {
-    name: 'span',
+    name: 'div',
     props: {},
   }
 
-  if (props.onClick && props.useButton) {
-    Tag.name = 'button'
-    Tag.props = {
-      type: 'button',
-    }
-  }
+  // if (props.onClick && props.useButton) {
+  //   Tag.name = 'button'
+  //   Tag.props = {
+  //     type: 'button',
+  //   }
+  // }
 
   if (props.html) {
     style = _convertStyleToCSS(style)

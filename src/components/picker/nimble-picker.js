@@ -536,7 +536,7 @@ export default class NimblePicker extends React.PureComponent {
       notFoundEmoji,
     } = this.props
 
-    var width = perLine * (emojiSize + 12) + 12 + 2 + measureScrollbar()
+    var width = '344px'
     var theme = this.getPreferredTheme()
     var skin =
       this.props.skin ||
@@ -546,35 +546,39 @@ export default class NimblePicker extends React.PureComponent {
 
     return (
       <section
-        style={{ width: width, ...style }}
+        style={{ width: '344px', ...style }}
         className={`emoji-mart emoji-mart-${theme}`}
         aria-label={title}
         onKeyDown={this.handleKeyDown}
       >
-        <div className="emoji-mart-bar">
-          <Anchors
-            ref={this.setAnchorsRef}
-            data={this.data}
-            i18n={this.i18n}
-            color={color}
-            categories={this.categories}
-            onAnchorClick={this.handleAnchorClick}
-            icons={this.icons}
-          />
-        </div>
-
-        <Search
-          ref={this.setSearchRef}
-          onSearch={this.handleSearch}
-          data={this.data}
-          i18n={this.i18n}
-          emojisToShowFilter={emojisToShowFilter}
-          include={include}
-          exclude={exclude}
-          custom={this.CUSTOM}
-          autoFocus={autoFocus}
-        />
-
+        {(showPreview || showSkinTones) && (
+          <div className="emoji-mart-bar">
+            <Preview
+              ref={this.setPreviewRef}
+              data={this.data}
+              title={title}
+              emoji={emoji}
+              showSkinTones={showSkinTones}
+              showPreview={showPreview}
+              emojiProps={{
+                native: native,
+                size: 38,
+                skin: skin,
+                set: set,
+                sheetSize: sheetSize,
+                sheetColumns: sheetColumns,
+                sheetRows: sheetRows,
+                backgroundImageFn: backgroundImageFn,
+              }}
+              skinsProps={{
+                skin: skin,
+                onChange: this.handleSkinChange,
+                skinEmoji: skinEmoji,
+              }}
+              i18n={this.i18n}
+            />
+          </div>
+        )}
         <div
           ref={this.setScrollRef}
           className="emoji-mart-scroll"
@@ -624,34 +628,30 @@ export default class NimblePicker extends React.PureComponent {
           })}
         </div>
 
-        {(showPreview || showSkinTones) && (
-          <div className="emoji-mart-bar">
-            <Preview
-              ref={this.setPreviewRef}
-              data={this.data}
-              title={title}
-              emoji={emoji}
-              showSkinTones={showSkinTones}
-              showPreview={showPreview}
-              emojiProps={{
-                native: native,
-                size: 38,
-                skin: skin,
-                set: set,
-                sheetSize: sheetSize,
-                sheetColumns: sheetColumns,
-                sheetRows: sheetRows,
-                backgroundImageFn: backgroundImageFn,
-              }}
-              skinsProps={{
-                skin: skin,
-                onChange: this.handleSkinChange,
-                skinEmoji: skinEmoji,
-              }}
-              i18n={this.i18n}
-            />
-          </div>
-        )}
+        <div className="emoji-mart-bar">
+          <Anchors
+            ref={this.setAnchorsRef}
+            data={this.data}
+            i18n={this.i18n}
+            color={color}
+            categories={this.categories}
+            onAnchorClick={this.handleAnchorClick}
+            icons={this.icons}
+          />
+        </div>
+
+        <Search
+          ref={this.setSearchRef}
+          onSearch={this.handleSearch}
+          data={this.data}
+          i18n={this.i18n}
+          emojisToShowFilter={emojisToShowFilter}
+          include={include}
+          exclude={exclude}
+          custom={this.CUSTOM}
+          autoFocus={autoFocus}
+        />
+
       </section>
     )
   }
